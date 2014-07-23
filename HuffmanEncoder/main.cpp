@@ -57,6 +57,20 @@ public:
     {
         return (a->frequency > b->frequency);
     }
+    
+    void output(string input)
+    {
+        if (leftNode == NULL && rightNode == NULL)
+        {
+            //leaf node
+            cout << ASCIIVal << " - " << input << "\n";
+            return;
+        }
+        
+        leftNode->output(input + '1');
+        rightNode->output(input + '0');
+        
+    }
 };
 
 class HuffmanTree
@@ -106,8 +120,9 @@ public:
     
     void outputTree()
     {
-        
+        parentNode->output("");
     }
+    
     ~HuffmanTree()
     {
         frequencyChart.clear();
@@ -123,6 +138,7 @@ int main(int argc, const char * argv[])
     HuffmanTree* myTree = new HuffmanTree();
     myTree->generateLeafFrequency("HELLO MY NAME IS AAMIR I AM 100", &charList[0]);
     myTree->generateTree();
+    myTree->outputTree();
     deletePtr(myTree);
     std::cout << "Hello, World!\n";
     return 0;
