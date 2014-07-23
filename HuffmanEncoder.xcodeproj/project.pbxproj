@@ -28,6 +28,7 @@
 		255C53DD197F4DB9007A793E /* HuffmanEncoder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HuffmanEncoder; sourceTree = BUILT_PRODUCTS_DIR; };
 		255C53E0197F4DB9007A793E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		255C53E2197F4DB9007A793E /* HuffmanEncoder.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = HuffmanEncoder.1; sourceTree = "<group>"; };
+		255C53E91980460E007A793E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +45,7 @@
 		255C53D4197F4DB9007A793E = {
 			isa = PBXGroup;
 			children = (
+				255C53E91980460E007A793E /* .gitignore */,
 				255C53DF197F4DB9007A793E /* HuffmanEncoder */,
 				255C53DE197F4DB9007A793E /* Products */,
 			);
