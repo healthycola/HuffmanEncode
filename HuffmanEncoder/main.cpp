@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <fstream>
 #include <map>
 
 using namespace std;
@@ -103,24 +104,48 @@ public:
         parentNode = TreeNodes.front();
     }
     
-    void generateLeafFrequency(string input, const char* characterList)
+    void generateLeafFrequency(string input)
+    {
+        //Reads a string and generates a frequncy list
+        for (string::iterator it = input.begin(); it != input.end(); it++)
+        {
+            //ignore if it's not in our character list
+            if (frequencyChart.count(*it) > 0)
+                frequencyChart[*it]++;
+        }
+    }
+    
+    bool generateLeafFrequencyFromFile(string fileName)
+    {
+        string line;
+        ifstream myfile (fileName);
+        if (myfile.is_open())
+        {
+            while ( getline (myfile,line) )
+            {
+                transform(line.begin(), line.end(), line.begin(), ::toupper);
+                generateLeafFrequency(line);
+            }
+            myfile.close();
+            return true;
+        }
+        
+        else cout << "Unable to open file" << "\n";
+        return false;
+    }
+    
+    void outputTree()
+    {
+        parentNode->output("");
+    }
+    
+    HuffmanTree(const char* characterList)
     {
         //Initialize characterList
         for (int i = 0; i < MAX_NUMBER_OF_CHARACTERS; i++)
         {
             frequencyChart[*characterList++] = 0;
         }
-        
-        //Reads a string and generates a frequncy list
-        for (string::iterator it = input.begin(); it != input.end(); it++)
-        {
-            frequencyChart[*it]++;
-        }
-    }
-    
-    void outputTree()
-    {
-        parentNode->output("");
     }
     
     ~HuffmanTree()
@@ -135,12 +160,23 @@ int main(int argc, const char * argv[])
 {
 
     // insert code here...
-    HuffmanTree* myTree = new HuffmanTree();
-    myTree->generateLeafFrequency("HELLO MY NAME IS AAMIR I AM 100", &charList[0]);
+    HuffmanTree* myTree = new HuffmanTree(&charList[0]);
+    cout << "Enter the filePath: " ;
+    string input, options;
+    getline(cin, input);
+    if (myTree->generateLeafFrequencyFromFile(input))
+    {
+        cout << "Huffman frequency was populated.\n";
+    }
+    else
+    {
+        cout << "Sorry, Huffman frequency was not populated. \n";
+        goto cleanup;
+    }
     myTree->generateTree();
     myTree->outputTree();
+cleanup:
     deletePtr(myTree);
-    std::cout << "Hello, World!\n";
     return 0;
 }
 

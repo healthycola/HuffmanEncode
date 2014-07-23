@@ -29,6 +29,8 @@
 		255C53E0197F4DB9007A793E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		255C53E2197F4DB9007A793E /* HuffmanEncoder.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = HuffmanEncoder.1; sourceTree = "<group>"; };
 		255C53E91980460E007A793E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		255C53EA198049FD007A793E /* wordList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordList.txt; sourceTree = "<group>"; };
+		255C53EB19804AD9007A793E /* brit-a-z.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "brit-a-z.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,8 @@
 		255C53DF197F4DB9007A793E /* HuffmanEncoder */ = {
 			isa = PBXGroup;
 			children = (
+				255C53EB19804AD9007A793E /* brit-a-z.txt */,
+				255C53EA198049FD007A793E /* wordList.txt */,
 				255C53E0197F4DB9007A793E /* main.cpp */,
 				255C53E2197F4DB9007A793E /* HuffmanEncoder.1 */,
 			);
