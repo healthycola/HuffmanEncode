@@ -24,62 +24,62 @@ void deletePtr(T* ptr)
 }
 
 //Hufman Encode
-class HuffEncNode
-{
-private:
-    HuffEncNode* leftNode;
-    HuffEncNode* rightNode;
-public:
-    char ASCIIVal;
-    int frequency;
-    HuffEncNode(char val, int freq)
-    {
-        ASCIIVal = val;
-        frequency = freq;
-        leftNode = nullptr;
-        rightNode = nullptr;
-    }
-    
-    HuffEncNode(int freq, HuffEncNode* rNode, HuffEncNode* lNode, char val = '\0')
-    {
-        ASCIIVal = val;
-        frequency = freq;
-        leftNode = lNode;
-        rightNode = rNode;
-    }
-    
-    ~HuffEncNode()
-    {
-        deletePtr(leftNode);
-        deletePtr(rightNode);
-    }
-    
-    static bool compare(HuffEncNode* a, HuffEncNode* b)
-    {
-        return (a->frequency > b->frequency);
-    }
-    
-    void output(string input)
-    {
-        if (leftNode == NULL && rightNode == NULL)
-        {
-            //leaf node
-            cout << ASCIIVal << " - " << input << "\n";
-            return;
-        }
-        
-        leftNode->output(input + '1');
-        rightNode->output(input + '0');
-        
-    }
-};
 
 class HuffmanTree
 {
 private:
+    class HuffEncNode
+    {
+    private:
+        HuffEncNode* leftNode;
+        HuffEncNode* rightNode;
+    public:
+        char ASCIIVal;
+        int frequency;
+        HuffEncNode(char val, int freq)
+        {
+            ASCIIVal = val;
+            frequency = freq;
+            leftNode = nullptr;
+            rightNode = nullptr;
+        }
+        
+        HuffEncNode(int freq, HuffEncNode* rNode, HuffEncNode* lNode, char val = '\0')
+        {
+            ASCIIVal = val;
+            frequency = freq;
+            leftNode = lNode;
+            rightNode = rNode;
+        }
+        
+        ~HuffEncNode()
+        {
+            deletePtr(leftNode);
+            deletePtr(rightNode);
+        }
+        
+        static bool compare(HuffEncNode* a, HuffEncNode* b)
+        {
+            return (a->frequency > b->frequency);
+        }
+        
+        void generateCodes(string input, map<char, string>* outputMap)
+        {
+            if (leftNode == NULL && rightNode == NULL)
+            {
+                //leaf node
+                (*outputMap)[ASCIIVal] = input;
+                return;
+            }
+            
+            leftNode->generateCodes(input + '1', outputMap);
+            rightNode->generateCodes(input + '0', outputMap);
+        }
+    };
     HuffEncNode* parentNode;
 public:
     map<char, int, less<int>> frequencyChart;
+    map<char, string> encodedMap;
     void generateTree()
     {
         vector<HuffEncNode*> TreeNodes;
@@ -102,6 +102,9 @@ public:
             sort(TreeNodes.begin(), TreeNodes.end(), HuffEncNode::compare);
         }
         parentNode = TreeNodes.front();
+        
+        //Generate the encoding map
+        parentNode->generateCodes("", &encodedMap);
     }
     
     void generateLeafFrequency(string input)
@@ -133,10 +136,14 @@ public:
         else cout << "Unable to open file" << "\n";
         return false;
     }
+  
     
     void outputTree()
     {
-        parentNode->output("");
+        for (map<char, string>::iterator it = encodedMap.begin(); it != encodedMap.end(); it++)
+        {
+            cout << it->first << " - " << it->second << "\n";
+        }
     }
     
     HuffmanTree(const char* characterList)
@@ -151,6 +158,7 @@ public:
     ~HuffmanTree()
     {
         frequencyChart.clear();
+        encodedMap.clear();
         deletePtr(parentNode);
     }
 };
@@ -158,8 +166,6 @@ public:
 
 int main(int argc, const char * argv[])
 {
-
-    // insert code here...
     HuffmanTree* myTree = new HuffmanTree(&charList[0]);
     cout << "Enter the filePath: " ;
     string input, options;
@@ -175,6 +181,7 @@ int main(int argc, const char * argv[])
     }
     myTree->generateTree();
     myTree->outputTree();
+    
 cleanup:
     deletePtr(myTree);
     return 0;
