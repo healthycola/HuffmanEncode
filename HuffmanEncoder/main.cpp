@@ -13,7 +13,7 @@ using namespace std;
 int main(int argc, const char * argv[])
 {
     HuffmanTree* myTree = new HuffmanTree(&charList[0]);
-    cout << "Enter the filePath: " ;
+    cout << "Enter the path to the file used to teach the encoder: " ;
     string input, options, plainText, plainText2, plainText3;
     getline(cin, input);
     if (myTree->generateLeafFrequencyFromFile(input))
