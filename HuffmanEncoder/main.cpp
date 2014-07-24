@@ -191,6 +191,21 @@ public:
         return output;
     }
     
+    void TestOutput(string plainText)
+    {
+        string encodedString, decodedString;
+        encodedString = encode(plainText);
+        decodedString = decode(encodedString);
+        cout << "Read Message of " << plainText.size() << " Bytes.\n";
+        cout << "Compressing " << plainText.size()*8 << " Bits into "<< encodedString.length() << " Bits. (" << (1.0 - (double)encodedString.length()/(double)plainText.size()/8.0) * 100.0 << "% compression)\n";
+        cout << "Sending Message\n";
+        cout << "Decompressing Message into " << decodedString.length() << " Bytes.\n";
+        if (plainText == decodedString)
+        {
+            cout << "Message Matches!\n";
+        }
+    }
+    
     HuffmanTree(const char* characterList)
     {
         //Initialize characterList
@@ -208,20 +223,6 @@ public:
     }
 };
 
-static void TestOutput(string plainText, HuffmanTree* myTree)
-{
-    string encodedString, decodedString;
-    encodedString = myTree->encode(plainText);
-    decodedString = myTree->decode(encodedString);
-    cout << "Read Message of " << plainText.size() << " Bytes.\n";
-    cout << "Compressing " << plainText.size()*8 << " Bits into "<< encodedString.length() << " Bits. (" << (1.0 - (double)encodedString.length()/(double)plainText.size()/8.0) * 100.0 << "% compression)\n";
-    cout << "Sending Message\n";
-    cout << "Decompressing Message into " << decodedString.length() << " Bytes.\n";
-    if (encodedString == decodedString)
-    {
-        cout << "Message Matches!\n";
-    }
-}
 
 int main(int argc, const char * argv[])
 {
@@ -239,16 +240,18 @@ int main(int argc, const char * argv[])
         goto cleanup;
     }
     myTree->generateTree();
-    myTree->outputTree();
+    //myTree->outputTree();
     
     
     plainText = "REMEMBER TO DRINK YOUR OVALTINE";
     plainText2 = "GIANTS BEAT DODGERS 10 TO 9 AND PLAY TOMORROW AT 1300";
     plainText3 = "SPACE THE FINAL FRONTIER THESE ARE THE VOYAGES OF THE BIT STREAM DAILY PROGRAMMER TO SEEK OUT NEW COMPRESSION";
     
-    TestOutput(plainText, myTree);
-    TestOutput(plainText2, myTree);
-    TestOutput(plainText3, myTree);
+    myTree->TestOutput(plainText);
+    cout << "\n";
+    myTree->TestOutput(plainText2);
+    cout << "\n";
+    myTree->TestOutput(plainText3);
 cleanup:
     deletePtr(myTree);
     return 0;
