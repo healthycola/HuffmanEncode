@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2553368E1981817700418531 /* HuffmanTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2553368C1981817700418531 /* HuffmanTree.cpp */; };
+		255336911981827E00418531 /* HuffEncNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2553368F1981827E00418531 /* HuffEncNode.cpp */; };
 		255C53E1197F4DB9007A793E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 255C53E0197F4DB9007A793E /* main.cpp */; };
 		255C53E3197F4DB9007A793E /* HuffmanEncoder.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 255C53E2197F4DB9007A793E /* HuffmanEncoder.1 */; };
 /* End PBXBuildFile section */
@@ -25,6 +27,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2553368C1981817700418531 /* HuffmanTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HuffmanTree.cpp; sourceTree = "<group>"; };
+		2553368D1981817700418531 /* HuffmanTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HuffmanTree.h; sourceTree = "<group>"; };
+		2553368F1981827E00418531 /* HuffEncNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HuffEncNode.cpp; sourceTree = "<group>"; };
+		25533693198191C700418531 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		255C53DD197F4DB9007A793E /* HuffmanEncoder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = HuffmanEncoder; sourceTree = BUILT_PRODUCTS_DIR; };
 		255C53E0197F4DB9007A793E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		255C53E2197F4DB9007A793E /* HuffmanEncoder.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = HuffmanEncoder.1; sourceTree = "<group>"; };
@@ -72,6 +78,10 @@
 				255C53E0197F4DB9007A793E /* main.cpp */,
 				255C53E2197F4DB9007A793E /* HuffmanEncoder.1 */,
 				255C53ED1980A8E0007A793E /* SampleTextFile */,
+				2553368C1981817700418531 /* HuffmanTree.cpp */,
+				2553368D1981817700418531 /* HuffmanTree.h */,
+				2553368F1981827E00418531 /* HuffEncNode.cpp */,
+				25533693198191C700418531 /* Helper.h */,
 			);
 			path = HuffmanEncoder;
 			sourceTree = "<group>";
@@ -128,6 +138,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				255C53E1197F4DB9007A793E /* main.cpp in Sources */,
+				255336911981827E00418531 /* HuffEncNode.cpp in Sources */,
+				2553368E1981817700418531 /* HuffmanTree.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +249,7 @@
 				255C53E8197F4DB9007A793E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
