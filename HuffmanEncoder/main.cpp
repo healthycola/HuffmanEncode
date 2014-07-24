@@ -75,6 +75,28 @@ private:
             leftNode->generateCodes(input + '1', outputMap);
             rightNode->generateCodes(input + '0', outputMap);
         }
+        
+        char deCode(string input, int* characterLocation)
+        {
+            if (leftNode == NULL && rightNode == NULL)
+            {
+                //leaf node
+                return ASCIIVal;
+            }
+            
+            if (input[*characterLocation] == '0')
+            {
+                //go into the right node
+                (*characterLocation)++;
+                return rightNode->deCode(input, characterLocation);
+            }
+            else
+            {
+                //go into the left node
+                (*characterLocation)++;
+                return leftNode->deCode(input, characterLocation);
+            }
+        }
     };
     HuffEncNode* parentNode;
 public:
@@ -146,6 +168,29 @@ public:
         }
     }
     
+    string encode(string plainText)
+    {
+        string output = "";
+        for (string::iterator it = plainText.begin(); it != plainText.end(); it++)
+        {
+            if (encodedMap.count(*it) < 1)
+                continue;   //ignore
+            output += encodedMap[*it];
+        }
+        return output;
+    }
+    
+    string decode(string encoded)
+    {
+        string output = "";
+        int characterLocation = 0;
+        while (characterLocation < encoded.length())
+        {
+            output += parentNode->deCode(encoded, &characterLocation);
+        }
+        return output;
+    }
+    
     HuffmanTree(const char* characterList)
     {
         //Initialize characterList
@@ -163,12 +208,26 @@ public:
     }
 };
 
+static void TestOutput(string plainText, HuffmanTree* myTree)
+{
+    string encodedString, decodedString;
+    encodedString = myTree->encode(plainText);
+    decodedString = myTree->decode(encodedString);
+    cout << "Read Message of " << plainText.size() << " Bytes.\n";
+    cout << "Compressing " << plainText.size()*8 << " Bits into "<< encodedString.length() << " Bits. (" << (1.0 - (double)encodedString.length()/(double)plainText.size()/8.0) * 100.0 << "% compression)\n";
+    cout << "Sending Message\n";
+    cout << "Decompressing Message into " << decodedString.length() << " Bytes.\n";
+    if (encodedString == decodedString)
+    {
+        cout << "Message Matches!\n";
+    }
+}
 
 int main(int argc, const char * argv[])
 {
     HuffmanTree* myTree = new HuffmanTree(&charList[0]);
     cout << "Enter the filePath: " ;
-    string input, options;
+    string input, options, plainText, plainText2, plainText3;
     getline(cin, input);
     if (myTree->generateLeafFrequencyFromFile(input))
     {
@@ -182,6 +241,14 @@ int main(int argc, const char * argv[])
     myTree->generateTree();
     myTree->outputTree();
     
+    
+    plainText = "REMEMBER TO DRINK YOUR OVALTINE";
+    plainText2 = "GIANTS BEAT DODGERS 10 TO 9 AND PLAY TOMORROW AT 1300";
+    plainText3 = "SPACE THE FINAL FRONTIER THESE ARE THE VOYAGES OF THE BIT STREAM DAILY PROGRAMMER TO SEEK OUT NEW COMPRESSION";
+    
+    TestOutput(plainText, myTree);
+    TestOutput(plainText2, myTree);
+    TestOutput(plainText3, myTree);
 cleanup:
     deletePtr(myTree);
     return 0;
